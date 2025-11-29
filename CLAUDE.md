@@ -1,10 +1,10 @@
-# Game Server - Developer Guide
+# Game - Developer Guide
 
 ## What This File Is
 
-**Quick reference for developers** - Navigation map, code conventions, file locations.
+**Navigation and conventions for the game project** - Shared across server, client, and shared package.
 
-**NOT a design doc** - For game design, read the actual docs below.
+**For AI context** - Helps Claude Code understand game design, systems, and conventions.
 
 ---
 
@@ -68,33 +68,23 @@ docs/
 
 ---
 
-## 🏗️ Code Structure
+## 🏗️ Multi-Repository Structure
 
-### File Locations
+This game is split across **3 repositories**:
 
-```
-game-server/
-├── src/
-│   ├── core-module/              # Server manager, world
-│   ├── ecs-module/
-│   │   ├── components.ts         # All ECS components
-│   │   └── systems/              # System implementations
-│   │       ├── attack.system.ts
-│   │       ├── entity-action.system.ts
-│   │       ├── movement.system.ts
-│   │       └── mobility.system.ts
-│   ├── physics-module/           # Box2D integration
-│   └── shared-module/            # Shared types & configs
-└── package.json
-```
+| Repository | Purpose | Tech Stack |
+|------------|---------|------------|
+| **game-server** | Authoritative server, game logic, physics | Node.js, bitECS, Box2D |
+| **game-client** | Browser client, rendering, input | TBD |
+| **game-shared** | Shared types, enums, configs (npm package) | TypeScript |
 
-### Key Files
+**This documentation** is shared via git submodule in all 3 repos at `docs/` folder.
 
-| File | Contains |
-|------|----------|
-| `src/ecs-module/components.ts` | All component definitions |
-| `src/ecs-module/systems/` | System implementations |
-| `src/shared-module/` | Shared configs, enums, types |
+**When working on features:**
+- Server logic → game-server repo
+- Client rendering → game-client repo
+- Shared types → game-shared repo (remember to version + publish!)
+- Documentation → Update here (game-docs repo)
 
 ---
 
@@ -198,10 +188,7 @@ These are **project decisions**, not code patterns:
 
 ## 📊 Current Status
 
-**Branch:** `attack-system`
-**Phase:** Phase 2 (Advanced Combat) in progress
-
-**For detailed status:** See [STATUS.md](./docs/STATUS.md)
+**For detailed implementation status:** See [STATUS.md](./docs/STATUS.md)
 
 ---
 
